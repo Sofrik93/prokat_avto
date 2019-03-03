@@ -1,0 +1,14 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+
+    ФИО: {{ history.clientFirst }} {{ history.clientLast }} {{ history.clientOch }} <br>
+    Автомобиль: {{ history.markaAvto }} {{ history.modelAvto }} <br>
+    Номер автомобиля: {{ history.numberAvto }} <br>
+    Точка проката: {{ history.tochka }} <br>
+    Дата взятия в прокат: {{ history.dataGo|date('Y/m/d') }} <br>
+    Дата возврата в прокат: {{ history.dataFinish|date('Y/m/d') }}
+
+
+{% endblock %}
+{% block title %}История{% endblock%}

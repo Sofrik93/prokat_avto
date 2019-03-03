@@ -1,0 +1,8 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+{%  for avto in history %}
+    <a href="{{ path('history_prokat', {id: avto.id})}}">{{ avto.markaavto }} {{ avto.modelAvto }}</a><br>
+{% endfor %}
+{% endblock %}
+{% block title %}История{% endblock%}
