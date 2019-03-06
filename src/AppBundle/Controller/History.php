@@ -10,6 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\FormBuilderInterface;
+use Doctrine\DBAL\DriverManager;
+
 
 class History extends Controller
 {
@@ -19,9 +22,9 @@ class History extends Controller
      */
     public function  historyAction ()
     {
-        $history=$this->getDoctrine()->getRepository('AppBundle:Procat_info')->findAll();
+        $history=$this->getDoctrine()->getRepository('AppBundle:Procat_info')->findAll(); //Ищем все данные в репозетроии
 
-        return $this->render('@App/default/history.html.twig', ['history'=>$history]);
+        return $this->render('@App/default/history.html.twig', ['history'=>$history]);//Передаем данные в представление
     }
 
 
@@ -30,10 +33,15 @@ class History extends Controller
      */
     public function  testingAction ($id)
     {
-        $history_prokat=$this->getDoctrine()->getRepository('AppBundle:Procat_info')->find($id);
-        return $this->render('@App/default/history_show.html.twig', ['history'=>$history_prokat]);
+        $history_prokat=$this->getDoctrine()->getRepository('AppBundle:Procat_info')->find($id); //Ищем данные по id
+        return $this->render('@App/default/history_show.html.twig', ['history'=>$history_prokat]); // Передаем данные в представление
 
     }
 
 
-    }
+
+
+
+
+
+}

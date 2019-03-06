@@ -23,6 +23,7 @@ class Procat_infoType extends AbstractType
             ->add('tochka', null, ['label'=>'Точка проката'])
             ->add('dataGo', null, ['label'=>'Дата взятия в прокат'])
             ->add('dataFinish', null, ['label'=>'Дата возврата в прокат']);
+
     }/**
      * {@inheritdoc}
      */

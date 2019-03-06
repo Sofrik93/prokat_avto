@@ -14,57 +14,35 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $form=$this->createForm('AppBundle\Form\Procat_infoType');
-        $form->add('Отправить', SubmitType::class);
-        $form->handleRequest($request);
+
+        $form=$this->createForm('AppBundle\Form\Procat_infoType'); //Создание формы, используя данные из сущности Entity-Procat_info
+        $form->add('Отправить', SubmitType::class); //Добавляем кнопку Отправить
+        $form->handleRequest($request); //Обработка формы с помощью метода handRequest
 
 
-        if($form->isSubmitted() && $form->isValid())
+        if($form->isSubmitted() && $form->isValid()) //Если кнопка отправить и поля введены вверно
         {
-            $prokat= $form->getData();
-            $em= $this->getDoctrine()->getManager();
+            $prokat= $form->getData(); //Помещаем данные в переменную
+            $em= $this->getDoctrine()->getManager(); //Подключаем менеджера Doctrine
 
 
-            $em->persist($prokat);
-            $em->flush();
+            $em->persist($prokat); //Обрабатываем данные в переменной
+            $em->flush(); //Заносим данные в базу
 
 
-            $this->addFlash('success', 'Заброниравно');
+            $this->addFlash('success', 'Заброниравно'); //Выводим сообщение об успешной брони
 
-            return $this->redirectToRoute('homepage');
+
+            return $this->redirectToRoute('homepage'); //После отправки формы, возращаем на страницу
 
 
         }
 
 
 
-        return $this->render('@App/default/index.html.twig', ['prokat_form'=>$form->createView()]);
+        return $this->render('@App/default/index.html.twig', ['prokat_form'=>$form->createView()]); //Передаем в представление данные из переменной
 
 
-    }
-
-    /**
-     * @Route("/", name="ajax")
-     */
-    public function ajaxAction(Request $request) {
-        $ajax_form = $this->getDoctrine()
-            ->getRepository('AppBundle:Procat_info')
-            ->findAll();
-
-        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
-            $jsonData = array();
-            $idx = 0;
-            foreach($ajax_form as $data) {
-                $temp = array(
-                    'markaAvto' => $data->getMarkaAvto(),
-                    'modelAvto' => $data->getModelAvto(),
-                );
-                $jsonData[$idx++] = $temp;
-            }
-            return new JsonResponse($jsonData);
-        } else {
-            return $this->render('@App/default/index.html.twig', ['data'=>$data]);
-        }
     }
 
 
